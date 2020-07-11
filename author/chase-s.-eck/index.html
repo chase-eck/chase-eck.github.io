@@ -208,6 +208,44 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-172397484-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-172397484-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
 
@@ -677,7 +715,7 @@
     
     
 
-    <p>Chase Eck is a doctoral candidate in Economics at The University of Arizona. His research interests include the optimal design of transfer programs and the effects of  occupational licensing in medicine on patients.</p>
+    <p>Chase Eck is a doctoral candidate in Economics at The University of Arizona. His research interests include the optimal design of transfer programs and the effects of  occupational licensing in medicine.</p>
 
 
     <div class="row">
